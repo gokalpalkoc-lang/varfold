@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "varfold"
+version = "0.1.0"
+description = "Research engine: batch ESMFold inference and structural-confidence analysis of missense variants"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=1.26",
+    "pandas>=2.1",
+    "scipy>=1.11",
+    "matplotlib>=3.8",
+    "pyyaml>=6",
+    "requests>=2.31",
+]
+
+[project.optional-dependencies]
+# Model inference (research workstation only).
+ml = ["torch>=2.7", "transformers>=4.45"]
+# Live inference worker reachable over Tailscale.
+serve = ["fastapi>=0.110", "uvicorn[standard]>=0.29", "pydantic>=2"]
+dev = ["pytest>=8", "httpx>=0.27"]
+
+[project.scripts]
+varfold = "varfold.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["varfold*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["model: needs the ESMFold weights (slow; run with -m model)"]
+addopts = "-m 'not model'"

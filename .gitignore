@@ -1,0 +1,19 @@
+# Python
+.venv/
+__pycache__/
+*.egg-info/
+.pytest_cache/
+
+# Generated research data (large; reproducible from configs + raw snapshots).
+# Commit data/<target>/raw/ snapshots separately if you want them versioned.
+data/
+
+# Frontend
+web/frontend/node_modules/
+web/frontend/dist/
+
+# Secrets
+deploy/.env
+deploy/data/
+*.env
+!deploy/.env.example
